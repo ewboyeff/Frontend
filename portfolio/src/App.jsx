@@ -1,11 +1,194 @@
 import { useState, useEffect, useRef } from 'react';
 
-// ---------- Lucide icon helper ----------
+// ---------- Language Content ----------
+const CONTENT = {
+  uz: {
+    nav: [
+      { label: "Bosh sahifa", href: "#home" },
+      { label: "Men haqimda", href: "#about" },
+      { label: "Tajriba", href: "#experience" },
+      { label: "Xizmatlar", href: "#services" },
+      { label: "Loyihalar", href: "#projects" },
+      { label: "Ko'nikmalar", href: "#skills" },
+      { label: "Bog'lanish", href: "#contact" },
+    ],
+    hero: {
+      badge: "2026 · YANGI LOYIHALAR QABUL QILINMOQDA",
+      title: "Backend, AI va Full Stack yechimlar orqali zamonaviy raqamli mahsulotlar yarataman",
+      desc: "Men Python, FastAPI, Django, AI chatbotlar, avtomatlashtirish tizimlari va full-stack web ilovalar orqali bizneslar uchun tez, xavfsiz va kengaytiriladigan texnologik yechimlar ishlab chiqaman.",
+      btn1: "Loyihalarimni ko'rish",
+      btn2: "Bog'lanish",
+      metrics: [
+        { k: "3+", v: "yil IT tajriba" },
+        { k: "10+", v: "loyiha" },
+        { k: "AI", v: "engineering" },
+      ],
+    },
+    about: {
+      label: "Men haqimda",
+      title: "Backend va AI bilan aqlli tizimlar.",
+      name: "Eshboyev Dilshod",
+      role: "Backend · AI · Full Stack",
+      location: "Tashkent, Uzbekistan",
+      github: "github.com/ewboyeff",
+      desc: "Men Eshboyev Dilshodman — Backend Developer, AI Engineer va Full Stack Developer. Hozirda PDP University'da Artificial Intelligence yo'nalishida tahsil olaman. Python, Django, FastAPI, REST API, database design, Docker, Linux serverlar, AI chatbotlar, avtomatlashtirish workflow'lari va machine learning modellar bilan ishlayman. Maqsadim — backend engineering va sun'iy intellektni birlashtirib, bizneslar uchun samarali, xavfsiz va aqlli tizimlar yaratish.",
+      stats: [
+        { k: "3+", v: "yil IT tajriba", icon: "Sparkles" },
+        { k: "AI", v: "Engineering", icon: "BrainCircuit" },
+        { k: "BE", v: "Backend Architecture", icon: "Server" },
+        { k: "⚡", v: "FastAPI / Django", icon: "Zap" },
+        { k: "24/7", v: "Chatbot & Automation", icon: "Bot" },
+        { k: "≡", v: "Docker & Linux", icon: "Container" },
+      ],
+    },
+    services: {
+      label: "Xizmatlarim",
+      title: "To'liq texnologik stack — bir joyda.",
+      desc: "Backend, AI va avtomatlashtirish — har bir bosqichda professional yondashuv va aniq natija.",
+      items: [
+        { icon: "Server", title: "Backend Development", desc: "FastAPI, Django, PostgreSQL, REST API, JWT authentication, WebSocket va Docker asosida scalable backend tizimlar.", tags: ["FastAPI", "Django", "Docker"] },
+        { icon: "Bot", title: "AI Chatbot & Assistant", desc: "Website, Telegram va Instagram uchun AI assistant, LLM chatbot, customer support bot va smart automation.", tags: ["LLM", "Telegram", "Assistant"] },
+        { icon: "Layers", title: "Full Stack Web Development", desc: "React frontend, backend API, admin panel, authentication, database va deploy bilan to'liq web application.", tags: ["React", "API", "Deploy"] },
+        { icon: "Workflow", title: "Automation Systems", desc: "n8n, Salebot, Nextbot va custom API integratsiyalar orqali biznes jarayonlarini avtomatlashtirish.", tags: ["n8n", "Salebot", "API"] },
+        { icon: "BrainCircuit", title: "Machine Learning Projects", desc: "Classification, recommendation system, CNN model, data preprocessing, model training va evaluation.", tags: ["CNN", "TensorFlow", "ML"] },
+        { icon: "Plug", title: "API & Bot Integration", desc: "Telegram bot, webhook, third-party API integration, payment, CRM va notification tizimlari.", tags: ["Webhook", "CRM", "Payment"] },
+      ],
+    },
+    projects: {
+      label: "Portfolio",
+      title: "Portfolio loyihalarim — tanlangan ishlar.",
+      more: "Barcha loyihalar",
+    },
+    skills: {
+      label: "Ko'nikmalar",
+      title: "Texnologiyalar va texnik stack.",
+      desc: "Backend, AI, DevOps va automation — har bir loyiha uchun to'g'ri vositalarni tanlayman.",
+      groups: [
+        { label: "Backend", icon: "Server", items: ["Python", "Django", "FastAPI", "REST API", "GraphQL", "gRPC", "WebSocket", "SOAP", "Webhooks", "JWT Authentication"] },
+        { label: "Databases & Tools", icon: "Database", items: ["PostgreSQL", "MongoDB", "Redis", "RabbitMQ", "SQL", "Database Design", "Query Optimization"] },
+        { label: "AI & Data", icon: "BrainCircuit", items: ["Pandas", "NumPy", "Data Cleaning", "Data Visualization", "Matplotlib", "Seaborn", "TensorFlow", "Machine Learning"] },
+        { label: "DevOps", icon: "Container", items: ["Docker", "Ubuntu", "Linux Server", "Nginx", "CI/CD", "Virtual Machines", "Git", "GitHub"] },
+        { label: "Automation & Bots", icon: "Workflow", items: ["Telegram Bot", "Aiogram", "n8n", "NextBot", "SaleBot", "Webhooks", "API Integration"] },
+        { label: "Frontend & Other", icon: "Layers", items: ["React", "Node.js", "TypeScript", "Figma", "Postman", "Power BI", "Excel", "Manual Testing"] },
+      ],
+    },
+    contact: {
+      label: "Bog'lanish",
+      title: "Yangi loyiha boshlashga tayyormisiz?",
+      desc: "Backend, AI, Full Stack yoki avtomatlashtirish uchun yordam kerak bo'lsa, men bilan bog'laning. Loyihangizni batafsil ko'rib, eng yaxshi yechimni taklif qilaman.",
+      btn1: "Email jo'natish",
+      btn2: "Telegram",
+    },
+    footer: {
+      copyright: "© 2026 Eshboyev Dilshod. Barcha huquqlar himoyalangan.",
+      privacy: "Maxfiylik siyosati",
+      terms: "Foydalanish shartlari",
+    },
+  },
+  en: {
+    nav: [
+      { label: "Home", href: "#home" },
+      { label: "About", href: "#about" },
+      { label: "Experience", href: "#experience" },
+      { label: "Services", href: "#services" },
+      { label: "Projects", href: "#projects" },
+      { label: "Skills", href: "#skills" },
+      { label: "Contact", href: "#contact" },
+    ],
+    hero: {
+      badge: "2026 · ACCEPTING NEW PROJECTS",
+      title: "Building modern digital products through Backend, AI & Full Stack solutions",
+      desc: "I create fast, secure, and scalable technology solutions for businesses using Python, FastAPI, Django, AI chatbots, automation systems, and full-stack web applications.",
+      btn1: "View My Projects",
+      btn2: "Get In Touch",
+      metrics: [
+        { k: "3+", v: "years IT experience" },
+        { k: "10+", v: "projects completed" },
+        { k: "AI", v: "engineering" },
+      ],
+    },
+    about: {
+      label: "About Me",
+      title: "Smart systems with Backend and AI.",
+      name: "Eshboyev Dilshod",
+      role: "Backend · AI · Full Stack Developer",
+      location: "Tashkent, Uzbekistan",
+      github: "github.com/ewboyeff",
+      desc: "I'm Eshboyev Dilshod — Backend Developer, AI Engineer, and Full Stack Developer. Currently studying Artificial Intelligence at PDP University. I work with Python, Django, FastAPI, REST APIs, database design, Docker, Linux servers, AI chatbots, automation workflows, and machine learning models. My goal is to combine backend engineering and artificial intelligence to create efficient, secure, and intelligent systems for businesses.",
+      stats: [
+        { k: "3+", v: "years IT experience", icon: "Sparkles" },
+        { k: "AI", v: "Engineering", icon: "BrainCircuit" },
+        { k: "BE", v: "Backend Architecture", icon: "Server" },
+        { k: "⚡", v: "FastAPI / Django", icon: "Zap" },
+        { k: "24/7", v: "Chatbot & Automation", icon: "Bot" },
+        { k: "≡", v: "Docker & Linux", icon: "Container" },
+      ],
+    },
+    services: {
+      label: "Services",
+      title: "Complete technology stack — all in one place.",
+      desc: "Backend, AI, and automation — professional approach and precise results at every step.",
+      items: [
+        { icon: "Server", title: "Backend Development", desc: "Scalable backend systems built with FastAPI, Django, PostgreSQL, REST APIs, JWT authentication, WebSocket, and Docker.", tags: ["FastAPI", "Django", "Docker"] },
+        { icon: "Bot", title: "AI Chatbot & Assistant", desc: "AI assistants, LLM chatbots, customer support bots, and smart automation for websites, Telegram, and Instagram.", tags: ["LLM", "Telegram", "Assistant"] },
+        { icon: "Layers", title: "Full Stack Web Development", desc: "Complete web applications with React frontend, backend APIs, admin panels, authentication, databases, and deployment.", tags: ["React", "API", "Deploy"] },
+        { icon: "Workflow", title: "Automation Systems", desc: "Business process automation through n8n, Salebot, Nextbot, and custom API integrations.", tags: ["n8n", "Salebot", "API"] },
+        { icon: "BrainCircuit", title: "Machine Learning Projects", desc: "Classification, recommendation systems, CNN models, data preprocessing, training, and evaluation.", tags: ["CNN", "TensorFlow", "ML"] },
+        { icon: "Plug", title: "API & Bot Integration", desc: "Telegram bots, webhooks, third-party API integrations, payments, CRM, and notification systems.", tags: ["Webhook", "CRM", "Payment"] },
+      ],
+    },
+    projects: {
+      label: "Portfolio",
+      title: "My portfolio projects — selected works.",
+      more: "All Projects",
+    },
+    skills: {
+      label: "Skills",
+      title: "Technologies & technical stack.",
+      desc: "Backend, AI, DevOps, and automation — I choose the right tools for every project.",
+      groups: [
+        { label: "Backend", icon: "Server", items: ["Python", "Django", "FastAPI", "REST API", "GraphQL", "gRPC", "WebSocket", "SOAP", "Webhooks", "JWT Authentication"] },
+        { label: "Databases & Tools", icon: "Database", items: ["PostgreSQL", "MongoDB", "Redis", "RabbitMQ", "SQL", "Database Design", "Query Optimization"] },
+        { label: "AI & Data", icon: "BrainCircuit", items: ["Pandas", "NumPy", "Data Cleaning", "Data Visualization", "Matplotlib", "Seaborn", "TensorFlow", "Machine Learning"] },
+        { label: "DevOps", icon: "Container", items: ["Docker", "Ubuntu", "Linux Server", "Nginx", "CI/CD", "Virtual Machines", "Git", "GitHub"] },
+        { label: "Automation & Bots", icon: "Workflow", items: ["Telegram Bot", "Aiogram", "n8n", "NextBot", "SaleBot", "Webhooks", "API Integration"] },
+        { label: "Frontend & Other", icon: "Layers", items: ["React", "Node.js", "TypeScript", "Figma", "Postman", "Power BI", "Excel", "Manual Testing"] },
+      ],
+    },
+    contact: {
+      label: "Contact",
+      title: "Ready to start a new project?",
+      desc: "Need help with backend, AI, full stack, or automation? Get in touch with me. I'll review your project and suggest the best solution.",
+      btn1: "Send Email",
+      btn2: "Telegram",
+    },
+    footer: {
+      copyright: "© 2026 Eshboyev Dilshod. All rights reserved.",
+      privacy: "Privacy Policy",
+      terms: "Terms of Service",
+    },
+  },
+};
+
+const PROJECTS = {
+  uz: [
+    { title: "Charity Index Uzbekistan", desc: "O'zbekistondagi barcha hayriya fondlari haqida ma'lumotlarni jamlaydigan platforma. Loyihada fondlar ro'yxati, fond profillari, qidiruv, kategoriyalar, admin panel va foydalanuvchilar uchun qulay ma'lumot ko'rish tizimi mavjud.", tags: ["React", "FastAPI", "PostgreSQL", "Admin Panel"], cat: "Charity Platform", hue: ["#22d3ee", "#3b82ff"] },
+    { title: "Museum Souvenirs Shop", desc: "Muzey suvenirlari uchun online do'kon. Loyihada mahsulotlar katalogi, savatcha, wishlist, ko'p tilli interfeys va admin panel mavjud.", tags: ["React", "FastAPI", "E-commerce", "Multilingual"], cat: "E-commerce", hue: ["#3b82ff", "#22d3ee"] },
+    { title: "Zerona AI Website", desc: "AI xizmatlarini taqdim etuvchi zamonaviy website. Unda service showcase, AI assistant widget va chatbot integratsiyasi mavjud.", tags: ["React", "AI Assistant", "OpenAI API", "Landing"], cat: "AI Product", hue: ["#8b5cf6", "#3b82ff"] },
+    { title: "Business Chatbot System", desc: "Bizneslar uchun mijozlar bilan avtomatik muloqot qiluvchi Telegram va Instagram DM chatbot konsepti. Bot mijoz savollariga javob beradi, lead yig'adi va CRM tizimga yuboradi.", tags: ["Telegram Bot", "Aiogram", "Webhook", "CRM"], cat: "Automation", hue: ["#3b82ff", "#8b5cf6"] },
+    { title: "Malaria Detection CNN Model", desc: "TensorFlow yordamida malaria aniqlash uchun CNN model. Image classification, model training va performance evaluation asosida qurilgan.", tags: ["Python", "TensorFlow", "CNN", "ML"], cat: "Machine Learning", hue: ["#22d3ee", "#8b5cf6"] },
+    { title: "Movie Recommendation System", desc: "MovieLens dataset asosida film tavsiya qiluvchi recommendation system. Data preprocessing, similarity logic va model evaluation bilan ishlab chiqilgan.", tags: ["Python", "Pandas", "NumPy", "Recommender"], cat: "Data Science", hue: ["#8b5cf6", "#22d3ee"] },
+  ],
+  en: [
+    { title: "Charity Index Uzbekistan", desc: "A platform that aggregates information about all charity foundations in Uzbekistan. Features foundation listings, profiles, search, categories, admin panel, and user-friendly information viewing system.", tags: ["React", "FastAPI", "PostgreSQL", "Admin Panel"], cat: "Charity Platform", hue: ["#22d3ee", "#3b82ff"] },
+    { title: "Museum Souvenirs Shop", desc: "Online store for museum souvenirs. Includes product catalog, shopping cart, wishlist, multilingual interface, and admin panel.", tags: ["React", "FastAPI", "E-commerce", "Multilingual"], cat: "E-commerce", hue: ["#3b82ff", "#22d3ee"] },
+    { title: "Zerona AI Website", desc: "Modern website showcasing AI services. Features service showcase, AI assistant widget, and chatbot integration.", tags: ["React", "AI Assistant", "OpenAI API", "Landing"], cat: "AI Product", hue: ["#8b5cf6", "#3b82ff"] },
+    { title: "Business Chatbot System", desc: "Telegram and Instagram DM chatbot for automatic customer communication. The bot answers questions, collects leads, and sends them to CRM systems.", tags: ["Telegram Bot", "Aiogram", "Webhook", "CRM"], cat: "Automation", hue: ["#3b82ff", "#8b5cf6"] },
+    { title: "Malaria Detection CNN Model", desc: "CNN model for malaria detection using TensorFlow. Built on image classification, model training, and performance evaluation.", tags: ["Python", "TensorFlow", "CNN", "ML"], cat: "Machine Learning", hue: ["#22d3ee", "#8b5cf6"] },
+    { title: "Movie Recommendation System", desc: "Recommendation system based on MovieLens dataset. Developed with data preprocessing, similarity logic, and model evaluation.", tags: ["Python", "Pandas", "NumPy", "Recommender"], cat: "Data Science", hue: ["#8b5cf6", "#22d3ee"] },
+  ],
+};
 const Icon = ({ name, className = "w-5 h-5", strokeWidth = 1.6 }) => {
-  const ref = useRef(null);
-  
-  // Lucide React dan import qilish
-  const icons = {
     'ArrowUpRight': () => <svg className={className} stroke="currentColor" fill="none" viewBox="0 0 24 24" strokeWidth={strokeWidth}><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>,
     'Menu': () => <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={strokeWidth}><path d="M3 5h18M3 12h18M3 19h18"/></svg>,
     'X': () => <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={strokeWidth}><path d="M6 6l12 12M18 6l-12 12"/></svg>,
@@ -49,19 +232,10 @@ const useReveal = () => {
 };
 
 // ---------- Navbar ----------
-const NAV_ITEMS = [
-  { label: "Bosh sahifa", href: "#home" },
-  { label: "Men haqimda", href: "#about" },
-  { label: "Tajriba", href: "#experience" },
-  { label: "Xizmatlar", href: "#services" },
-  { label: "Loyihalar", href: "#projects" },
-  { label: "Ko'nikmalar", href: "#skills" },
-  { label: "Bog'lanish", href: "#contact" },
-];
-
-const Navbar = () => {
+const Navbar = ({ lang, setLang }) => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const content = CONTENT[lang];
   
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -78,33 +252,41 @@ const Navbar = () => {
               <span className="absolute inset-0 bg-gradient-to-br from-neon-blue via-neon-violet to-neon-cyan opacity-90"></span>
               <span className="absolute inset-[3px] rounded-md bg-ink-950 grid place-items-center font-display font-bold text-[13px] text-white">E</span>
             </span>
-            <span className="font-display font-semibold tracking-tight text-white/95">Dilshod<span className="text-gradient-accent"></span></span>
+            <span className="font-display font-semibold tracking-tight text-white/95">Dilshod</span>
           </a>
 
           <nav className="hidden lg:flex items-center gap-7">
-            {NAV_ITEMS.map((n) => (
+            {content.nav.map((n) => (
               <a key={n.href} href={n.href} className="nav-link text-[13.5px] text-white/70 hover:text-white transition-colors">{n.label}</a>
             ))}
           </nav>
 
           <div className="hidden lg:flex items-center gap-3">
+            <button onClick={() => setLang(lang === 'uz' ? 'en' : 'uz')} className="px-3 py-1.5 rounded-lg text-[12px] font-mono text-white/70 hover:text-white border border-white/20 transition">
+              {lang === 'uz' ? 'EN' : 'UZ'}
+            </button>
             <a href="#contact" className="btn-primary px-4 py-2 rounded-xl text-[13.5px] font-medium inline-flex items-center gap-2">
-              Loyihani boshlash <Icon name="ArrowUpRight" className="w-4 h-4" />
+              {lang === 'uz' ? 'Loyihani boshlash' : 'Start Project'} <Icon name="ArrowUpRight" className="w-4 h-4" />
             </a>
           </div>
 
-          <button onClick={() => setOpen(v => !v)} className="lg:hidden glass rounded-xl p-2.5" aria-label="Menu">
-            <Icon name={open ? "X" : "Menu"} className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-2 lg:hidden">
+            <button onClick={() => setLang(lang === 'uz' ? 'en' : 'uz')} className="px-2 py-1 rounded text-[11px] font-mono text-white/70 hover:text-white">
+              {lang === 'uz' ? 'EN' : 'UZ'}
+            </button>
+            <button onClick={() => setOpen(v => !v)} className="glass rounded-xl p-2.5" aria-label="Menu">
+              <Icon name={open ? "X" : "Menu"} className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         {/* Mobile drawer */}
         <div className={`lg:hidden overflow-hidden transition-all duration-500 ${open ? "max-h-[400px] mt-3" : "max-h-0"}`}>
           <div className="glass rounded-2xl p-4 flex flex-col gap-1">
-            {NAV_ITEMS.map((n) => (
+            {content.nav.map((n) => (
               <a key={n.href} href={n.href} onClick={() => setOpen(false)} className="px-3 py-2.5 rounded-lg text-sm text-white/80 hover:bg-white/5 transition">{n.label}</a>
             ))}
-            <a href="#contact" onClick={() => setOpen(false)} className="btn-primary mt-2 px-4 py-3 rounded-xl text-sm font-medium text-center">Loyihani boshlash</a>
+            <a href="#contact" onClick={() => setOpen(false)} className="btn-primary mt-2 px-4 py-3 rounded-xl text-sm font-medium text-center">{lang === 'uz' ? 'Loyihani boshlash' : 'Start Project'}</a>
           </div>
         </div>
       </div>
@@ -212,7 +394,9 @@ const HeroVisual = () => {
 };
 
 // ---------- Hero Section ----------
-const Hero = () => {
+const Hero = ({ lang }) => {
+  const content = CONTENT[lang].hero;
+  
   return (
     <section id="home" className="relative pt-36 lg:pt-44 pb-20 lg:pb-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
@@ -220,35 +404,29 @@ const Hero = () => {
           <div className="lg:col-span-7">
             <div className="reveal inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass mb-6 ring-grad">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_2px_rgba(52,211,153,.6)]"></span>
-              <span className="font-mono text-[11px] tracking-wider text-white/70">2026 · YANGI LOYIHALAR QABUL QILINMOQDA</span>
+              <span className="font-mono text-[11px] tracking-wider text-white/70">{content.badge}</span>
             </div>
 
             <h1 className="reveal font-display font-semibold tracking-[-0.025em] text-[44px] sm:text-6xl lg:text-7xl leading-[1.02] text-white">
-              <span className="text-gradient">Backend, AI va<br />Full Stack</span> <span className="text-white/85">yechimlar orqali</span><br />
-              <span className="text-white/85">zamonaviy</span> <span className="text-gradient-accent">raqamli mahsulotlar</span><br />
-              <span className="text-white/85">yarataman</span>
+              <span className="text-gradient">{content.title}</span>
             </h1>
 
             <p className="reveal mt-7 max-w-xl text-base sm:text-lg text-white/65 leading-relaxed">
-              Men Python, FastAPI, Django, AI chatbotlar, avtomatlashtirish tizimlari va full-stack web ilovalar orqali bizneslar uchun tez, xavfsiz va kengaytiriladigan texnologik yechimlar ishlab chiqaman.
+              {content.desc}
             </p>
 
             <div className="reveal mt-9 flex flex-wrap items-center gap-3">
               <a href="#projects" className="btn-primary px-5 py-3.5 rounded-xl text-sm font-medium inline-flex items-center gap-2">
-                Loyihalarimni ko'rish <Icon name="ArrowRight" className="w-4 h-4" />
+                {content.btn1} <Icon name="ArrowRight" className="w-4 h-4" />
               </a>
               <a href="#contact" className="btn-ghost px-5 py-3.5 rounded-xl text-sm font-medium inline-flex items-center gap-2">
-                Bog'lanish <Icon name="MessageSquare" className="w-4 h-4" />
+                {content.btn2} <Icon name="MessageSquare" className="w-4 h-4" />
               </a>
             </div>
 
             {/* Inline metrics */}
             <div className="reveal mt-12 grid grid-cols-3 gap-3 sm:gap-6 max-w-lg">
-              {[
-                { k: "3+", v: "yil IT tajriba" },
-                { k: "10+", v: "loyiha" },
-                { k: "AI", v: "engineering" },
-              ].map((m, i) => (
+              {content.metrics.map((m, i) => (
                 <div key={i}>
                   <div className="font-display text-2xl sm:text-3xl text-white">{m.k}</div>
                   <div className="text-[12px] text-white/55 mt-0.5">{m.v}</div>
@@ -282,38 +460,31 @@ const About = () => {
   const stats = [
     { k: "3+", v: "yil IT tajriba", icon: "Sparkles" },
     { k: "AI", v: "Engineering", icon: "BrainCircuit" },
-    { k: "BE", v: "Backend Architecture", icon: "Server" },
-    { k: "⚡", v: "FastAPI / Django", icon: "Zap" },
-    { k: "24/7", v: "Chatbot & Automation", icon: "Bot" },
-    { k: "≡", v: "Docker & Linux", icon: "Container" },
-  ];
+    { k: "BE", { lang }) => {
+  const content = CONTENT[lang].about;
+  
   return (
     <section id="about" className="relative py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid lg:grid-cols-12 gap-12 items-start">
           <div className="lg:col-span-5 reveal">
-            <SectionLabel num="01" text="Men haqimda" />
+            <SectionLabel num="01" text={content.label} />
             <h2 className="font-display text-4xl sm:text-5xl lg:text-[56px] leading-[1.05] tracking-tight mt-5">
-              <span className="text-white">Backend va AI bilan</span><br />
-              <span className="text-gradient-accent">aqlli tizimlar.</span>
+              {content.title}
             </h2>
             <div className="mt-6 glass rounded-2xl p-4 ring-grad space-y-2">
-              <div className="flex items-center gap-2 text-[13px] text-white/75"><Icon name="User" className="w-3.5 h-3.5 text-white/55" /> Eshboyev Dilshod</div>
-              <div className="flex items-center gap-2 text-[13px] text-white/75"><Icon name="Briefcase" className="w-3.5 h-3.5 text-white/55" /> Backend · AI · Full Stack</div>
-              <div className="flex items-center gap-2 text-[13px] text-white/75"><Icon name="MapPin" className="w-3.5 h-3.5 text-white/55" /> Tashkent, Uzbekistan</div>
-              <div className="flex items-center gap-2 text-[13px] text-white/75"><Icon name="Github" className="w-3.5 h-3.5 text-white/55" /> github.com/ewboyeff</div>
+              <div className="flex items-center gap-2 text-[13px] text-white/75"><Icon name="User" className="w-3.5 h-3.5 text-white/55" /> {content.name}</div>
+              <div className="flex items-center gap-2 text-[13px] text-white/75"><Icon name="Briefcase" className="w-3.5 h-3.5 text-white/55" /> {content.role}</div>
+              <div className="flex items-center gap-2 text-[13px] text-white/75"><Icon name="MapPin" className="w-3.5 h-3.5 text-white/55" /> {content.location}</div>
+              <div className="flex items-center gap-2 text-[13px] text-white/75"><Icon name="Github" className="w-3.5 h-3.5 text-white/55" /> {content.github}</div>
             </div>
           </div>
           <div className="lg:col-span-7 reveal">
             <p className="text-lg text-white/70 leading-relaxed">
-              Men Eshboyev Dilshodman — Backend Developer, AI Engineer va Full Stack Developer. Hozirda PDP University'da Artificial Intelligence yo'nalishida tahsil olaman. Python, Django, FastAPI, REST API, database design, Docker, Linux serverlar, AI chatbotlar, avtomatlashtirish workflow'lari va machine learning modellar bilan ishlayman. Maqsadim — backend engineering va sun'iy intellektni birlashtirib, bizneslar uchun samarali, xavfsiz va aqlli tizimlar yaratish.
+              {content.desc}
             </p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-8">
-              {stats.map((s, i) => (
-                <div key={i} className="glass glass-hover rounded-2xl p-5 ring-grad">
-                  <div className="flex items-center justify-between">
-                    <div className="font-display text-2xl text-white">{s.k}</div>
-                    <span className="w-9 h-9 rounded-xl bg-gradient-to-br from-neon-blue/30 to-neon-violet/30 grid place-items-center border border-white/10">
+              {content.     <span className="w-9 h-9 rounded-xl bg-gradient-to-br from-neon-blue/30 to-neon-violet/30 grid place-items-center border border-white/10">
                       <Icon name={s.icon} className="w-4 h-4 text-white/85" />
                     </span>
                   </div>
@@ -348,244 +519,174 @@ const SectionHeader = ({ num, label, title, kicker }) => (
 );
 
 // ---------- Services ----------
-const SERVICES = [
-  { icon: "Server", title: "Backend Development", desc: "FastAPI, Django, PostgreSQL, REST API, JWT authentication, WebSocket va Docker asosida scalable backend tizimlar.", tags: ["FastAPI", "Django", "Docker"] },
-  { icon: "Bot", title: "AI Chatbot & Assistant", desc: "Website, Telegram va Instagram uchun AI assistant, LLM chatbot, customer support bot va smart automation.", tags: ["LLM", "Telegram", "Assistant"] },
-  { icon: "Layers", title: "Full Stack Web Development", desc: "React frontend, backend API, admin panel, authentication, database va deploy bilan to'liq web application.", tags: ["React", "API", "Deploy"] },
-  { icon: "Workflow", title: "Automation Systems", desc: "n8n, Salebot, Nextbot va custom API integratsiyalar orqali biznes jarayonlarini avtomatlashtirish.", tags: ["n8n", "Salebot", "API"] },
-  { icon: "BrainCircuit", title: "Machine Learning Projects", desc: "Classification, recommendation system, CNN model, data preprocessing, model training va evaluation.", tags: ["CNN", "TensorFlow", "ML"] },
-  { icon: "Plug", title: "API & Bot Integration", desc: "Telegram bot, webhook, third-party API integration, payment, CRM va notification tizimlari.", tags: ["Webhook", "CRM", "Payment"] },
-];
-
-const ServiceCard = ({ s, i }) => (
-  <div className="reveal glass glass-hover rounded-3xl p-6 sm:p-7 ring-grad relative overflow-hidden group">
-    <div aria-hidden className="absolute -top-20 -right-20 w-56 h-56 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-         style={{ background: "radial-gradient(circle, rgba(139,92,246,.35), transparent 70%)" }} />
-    <div className="flex items-center justify-between mb-7">
-      <span className="w-12 h-12 rounded-2xl bg-gradient-to-br from-neon-blue/25 via-neon-violet/25 to-neon-cyan/25 border border-white/10 grid place-items-center">
-        <Icon name={s.icon} className="w-5 h-5 text-white" />
-      </span>
-      <span className="font-mono text-[11px] text-white/35 tracking-widest">0{i + 1}</span>
-    </div>
-    <h3 className="font-display text-xl text-white">{s.title}</h3>
-    <p className="text-[14.5px] text-white/60 mt-2 leading-relaxed">{s.desc}</p>
-    <div className="mt-5 flex flex-wrap gap-1.5">
-      {s.tags.map(t => (
-        <span key={t} className="text-[11px] font-mono px-2 py-1 rounded-md bg-white/5 border border-white/10 text-white/65">{t}</span>
-      ))}
-    </div>
-  </div>
-);
-
-const Services = () => (
-  <section id="services" className="relative py-24 lg:py-32">
-    <div className="mx-auto max-w-7xl px-5 sm:px-8">
-      <SectionHeader
-        num="03"
-        label="Xizmatlarim"
-        title={<>To'liq texnologik stack <span className="text-gradient-accent">— bir joyda.</span></>}
-        kicker="Backend, AI va avtomatlashtirish — har bir bosqichda professional yondashuv va aniq natija."
-      />
-      <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {SERVICES.map((s, i) => <ServiceCard key={s.title} s={s} i={i} />)}
+const Services = ({ lang }) => {
+  const content = CONTENT[lang].services;
+  
+  return (
+    <section id="services" className="relative py-24 lg:py-32">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <SectionHeader
+          num="03"
+          label={content.label}
+          title={content.title}
+          kicker={content.desc}
+        />
+        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {content.items.map((s, i) => <ServiceCard key={s.title} s={s} i={i} />)}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 // ---------- Projects ----------
-const PROJECTS = [
-  { title: "Charity Index Uzbekistan", desc: "O'zbekistondagi barcha hayriya fondlari haqida ma'lumotlarni jamlaydigan platforma. Loyihada fondlar ro'yxati, fond profillari, qidiruv, kategoriyalar, admin panel va foydalanuvchilar uchun qulay ma'lumot ko'rish tizimi mavjud.", tags: ["React", "FastAPI", "PostgreSQL", "Admin Panel"], cat: "Charity Platform", hue: ["#22d3ee", "#3b82ff"] },
-  { title: "Museum Souvenirs Shop", desc: "Muzey suvenirlari uchun online do'kon. Loyihada mahsulotlar katalogi, savatcha, wishlist, ko'p tilli interfeys va admin panel mavjud.", tags: ["React", "FastAPI", "E-commerce", "Multilingual"], cat: "E-commerce", hue: ["#3b82ff", "#22d3ee"] },
-  { title: "Zerona AI Website", desc: "AI xizmatlarini taqdim etuvchi zamonaviy website. Unda service showcase, AI assistant widget va chatbot integratsiyasi mavjud.", tags: ["React", "AI Assistant", "OpenAI API", "Landing"], cat: "AI Product", hue: ["#8b5cf6", "#3b82ff"] },
-  { title: "Business Chatbot System", desc: "Bizneslar uchun mijozlar bilan avtomatik muloqot qiluvchi Telegram va Instagram DM chatbot konsepti. Bot mijoz savollariga javob beradi, lead yig'adi va CRM tizimga yuboradi.", tags: ["Telegram Bot", "Aiogram", "Webhook", "CRM"], cat: "Automation", hue: ["#3b82ff", "#8b5cf6"] },
-  { title: "Malaria Detection CNN Model", desc: "TensorFlow yordamida malaria aniqlash uchun CNN model. Image classification, model training va performance evaluation asosida qurilgan.", tags: ["Python", "TensorFlow", "CNN", "ML"], cat: "Machine Learning", hue: ["#22d3ee", "#8b5cf6"] },
-  { title: "Movie Recommendation System", desc: "MovieLens dataset asosida film tavsiya qiluvchi recommendation system. Data preprocessing, similarity logic va model evaluation bilan ishlab chiqilgan.", tags: ["Python", "Pandas", "NumPy", "Recommender"], cat: "Data Science", hue: ["#8b5cf6", "#22d3ee"] },
-];
+const Projects = ({ lang }) => {
+  const content = CONTENT[lang].projects;
+  const projectList = PROJECTS[lang];
+  
+  return (
+    <section id="projects" className="relative py-24 lg:py-32">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+          <SectionHeader
+            num="04"
+            label={content.label}
+            title={content.title}
+          />
+          <a href="#contact" className="btn-ghost px-4 py-2.5 rounded-xl text-sm inline-flex items-center gap-2 self-start lg:self-auto">
+            {content.more} <Icon name="ArrowUpRight" className="w-4 h-4" />
+          </a>
+        </div>
 
-const ProjectThumb = ({ p }) => (
-  <div className="relative h-56 sm:h-64 rounded-2xl overflow-hidden border border-white/10">
-    <div className="absolute inset-0 stripe-ph"></div>
-    <div className="absolute inset-0" style={{
-      background: `radial-gradient(60% 80% at 30% 30%, ${p.hue[0]}55, transparent 60%), radial-gradient(70% 70% at 80% 80%, ${p.hue[1]}55, transparent 60%)`
-    }}></div>
-    <div className="absolute inset-0 grid place-items-center">
-      <div className="font-mono text-[10px] tracking-[0.3em] text-white/40 uppercase">[ {p.cat} ]</div>
-    </div>
-    <div className="absolute top-3 left-3 flex items-center gap-2">
-      <span className="w-2 h-2 rounded-full bg-white/40"></span>
-      <span className="w-2 h-2 rounded-full bg-white/25"></span>
-      <span className="w-2 h-2 rounded-full bg-white/15"></span>
-    </div>
-    <div className="absolute bottom-3 right-3 px-2 py-1 rounded-md glass font-mono text-[10px] text-white/70 tracking-wider">PREVIEW</div>
-  </div>
-);
-
-const Projects = () => (
-  <section id="projects" className="relative py-24 lg:py-32">
-    <div className="mx-auto max-w-7xl px-5 sm:px-8">
-      <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
-        <SectionHeader
-          num="04"
-          label="Portfolio"
-          title={<>Portfolio loyihalarim — <span className="text-gradient-accent">tanlangan ishlar.</span></>}
-        />
-        <a href="#contact" className="btn-ghost px-4 py-2.5 rounded-xl text-sm inline-flex items-center gap-2 self-start lg:self-auto">
-          Barcha loyihalar <Icon name="ArrowUpRight" className="w-4 h-4" />
-        </a>
-      </div>
-
-      <div className="mt-14 grid md:grid-cols-2 gap-5 lg:gap-6">
-        {PROJECTS.map((p, i) => (
-          <article key={p.title} className="reveal glass glass-hover rounded-3xl p-5 sm:p-6 ring-grad group">
-            <ProjectThumb p={p} />
-            <div className="mt-5 flex items-start justify-between gap-4">
-              <div>
-                <div className="font-mono text-[11px] tracking-widest text-white/40 uppercase mb-1.5">PROJECT 0{i + 1} · {p.cat}</div>
-                <h3 className="font-display text-2xl text-white">{p.title}</h3>
+        <div className="mt-14 grid md:grid-cols-2 gap-5 lg:gap-6">
+          {projectList.map((p, i) => (
+            <article key={p.title} className="reveal glass glass-hover rounded-3xl p-5 sm:p-6 ring-grad group">
+              <ProjectThumb p={p} />
+              <div className="mt-5 flex items-start justify-between gap-4">
+                <div>
+                  <div className="font-mono text-[11px] tracking-widest text-white/40 uppercase mb-1.5">PROJECT 0{i + 1} · {p.cat}</div>
+                  <h3 className="font-display text-2xl text-white">{p.title}</h3>
+                </div>
+                <a href="#contact" className="shrink-0 w-10 h-10 rounded-xl glass border border-white/10 grid place-items-center hover:bg-white/10 transition group/arrow">
+                  <Icon name="ArrowUpRight" className="w-4 h-4 text-white/80 group-hover/arrow:rotate-45 transition-transform" />
+                </a>
               </div>
-              <a href="#contact" className="shrink-0 w-10 h-10 rounded-xl glass border border-white/10 grid place-items-center hover:bg-white/10 transition group/arrow">
-                <Icon name="ArrowUpRight" className="w-4 h-4 text-white/80 group-hover/arrow:rotate-45 transition-transform" />
-              </a>
-            </div>
-            <p className="mt-3 text-white/60 text-[14.5px] leading-relaxed">{p.desc}</p>
-            <div className="mt-5 flex items-center justify-between flex-wrap gap-3">
-              <div className="flex flex-wrap gap-1.5">
-                {p.tags.map(t => (
-                  <span key={t} className="text-[11px] font-mono px-2 py-1 rounded-md bg-white/5 border border-white/10 text-white/65">{t}</span>
-                ))}
+              <p className="mt-3 text-white/60 text-[14.5px] leading-relaxed">{p.desc}</p>
+              <div className="mt-5 flex items-center justify-between flex-wrap gap-3">
+                <div className="flex flex-wrap gap-1.5">
+                  {p.tags.map(t => (
+                    <span key={t} className="text-[11px] font-mono px-2 py-1 rounded-md bg-white/5 border border-white/10 text-white/65">{t}</span>
+                  ))}
+                </div>
+                <a href="#contact" className="text-[13px] text-white/85 inline-flex items-center gap-1.5 hover:text-white">
+                  {lang === 'uz' ? 'Ko\'rish' : 'View'} <Icon name="ArrowRight" className="w-3.5 h-3.5" />
+                </a>
               </div>
-              <a href="#contact" className="text-[13px] text-white/85 inline-flex items-center gap-1.5 hover:text-white">
-                Ko'rish <Icon name="ArrowRight" className="w-3.5 h-3.5" />
-              </a>
-            </div>
-          </article>
-        ))}
+            </article>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 // ---------- Skills ----------
-const SKILL_GROUPS = [
-  { label: "Backend", icon: "Server", items: ["Python", "Django", "FastAPI", "REST API", "GraphQL", "gRPC", "WebSocket", "SOAP", "Webhooks", "JWT Authentication"] },
-  { label: "Databases & Tools", icon: "Database", items: ["PostgreSQL", "MongoDB", "Redis", "RabbitMQ", "SQL", "Database Design", "Query Optimization"] },
-  { label: "AI & Data", icon: "BrainCircuit", items: ["Pandas", "NumPy", "Data Cleaning", "Data Visualization", "Matplotlib", "Seaborn", "TensorFlow", "Machine Learning"] },
-  { label: "DevOps", icon: "Container", items: ["Docker", "Ubuntu", "Linux Server", "Nginx", "CI/CD", "Virtual Machines", "Git", "GitHub"] },
-  { label: "Automation & Bots", icon: "Workflow", items: ["Telegram Bot", "Aiogram", "n8n", "NextBot", "SaleBot", "Webhooks", "API Integration"] },
-  { label: "Frontend & Other", icon: "Layers", items: ["React", "Node.js", "TypeScript", "Figma", "Postman", "Power BI", "Excel", "Manual Testing"] },
-];
-
-const SkillGroupCard = ({ g, i }) => (
-  <div className="reveal glass glass-hover rounded-3xl p-6 ring-grad">
-    <div className="flex items-center justify-between mb-5">
-      <div className="flex items-center gap-3">
-        <span className="w-10 h-10 rounded-xl bg-gradient-to-br from-neon-blue/30 via-neon-violet/30 to-neon-cyan/30 border border-white/10 grid place-items-center">
-          <Icon name={g.icon} className="w-4 h-4 text-white" />
-        </span>
-        <h3 className="font-display text-lg text-white">{g.label}</h3>
+const Skills = ({ lang }) => {
+  const content = CONTENT[lang].skills;
+  
+  return (
+    <section id="skills" className="relative py-24 lg:py-32">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <SectionHeader
+          num="06"
+          label={content.label}
+          title={content.title}
+          kicker={content.desc}
+        />
+        <div className="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {content.groups.map((g, i) => <SkillGroupCard key={g.label} g={g} i={i} />)}
+        </div>
       </div>
-      <span className="font-mono text-[11px] text-white/35 tracking-widest">0{i + 1}</span>
-    </div>
-    <div className="flex flex-wrap gap-1.5">
-      {g.items.map(t => (
-        <span key={t} className="text-[12px] font-mono px-2.5 py-1.5 rounded-lg bg-white/[0.04] border border-white/10 text-white/75 hover:bg-white/10 hover:text-white transition">{t}</span>
-      ))}
-    </div>
-  </div>
-);
-
-const Skills = () => (
-  <section id="skills" className="relative py-24 lg:py-32">
-    <div className="mx-auto max-w-7xl px-5 sm:px-8">
-      <SectionHeader
-        num="06"
-        label="Ko'nikmalar"
-        title={<>Texnologiyalar va <span className="text-gradient-accent">texnik stack.</span></>}
-        kicker="Backend, AI, DevOps va automation — har bir loyiha uchun to'g'ri vositalarni tanlayman."
-      />
-      <div className="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {SKILL_GROUPS.map((g, i) => <SkillGroupCard key={g.label} g={g} i={i} />)}
-      </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 // ---------- Contact CTA ----------
-const Contact = () => (
-  <section id="contact" className="relative py-24 lg:py-32">
-    <div className="mx-auto max-w-7xl px-5 sm:px-8">
-      <div className="reveal max-w-3xl mx-auto text-center">
-        <SectionLabel num="07" text="Bog'lanish" />
-        <h2 className="font-display text-4xl sm:text-5xl lg:text-[56px] leading-[1.05] tracking-tight mt-5 text-white">
-          Yangi <span className="text-gradient-accent">loyiha boshlashga</span><br />
-          tayyormisiz?
-        </h2>
-        <p className="mt-7 text-lg text-white/65 max-w-2xl mx-auto leading-relaxed">
-          Backend, AI, Full Stack yoki avtomatlashtirish uchun yordam kerak bo'lsa, men bilan bog'laning. Loyihangizni batafsil ko'rib, eng yaxshi yechimni taklif qilaman.
-        </p>
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <a href="mailto:dilshod@example.com" className="btn-primary px-6 py-3.5 rounded-xl text-sm font-medium inline-flex items-center gap-2">
-            Email jo'natish <Icon name="ArrowUpRight" className="w-4 h-4" />
-          </a>
-          <a href="https://t.me/dilshod_uz" target="_blank" rel="noopener noreferrer" className="btn-ghost px-6 py-3.5 rounded-xl text-sm font-medium">
-            Telegram
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-);
-
-// ---------- Footer ----------
-const Footer = () => (
-  <footer className="border-t border-white/[0.06] py-12 bg-ink-900/30">
-    <div className="mx-auto max-w-7xl px-5 sm:px-8">
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-        <div>
-          <h4 className="font-display font-semibold text-white mb-4">Dilshod</h4>
-          <p className="text-[13px] text-white/55 leading-relaxed">Backend, AI va Full Stack yechimlar orqali zamonaviy mahsulotlar.</p>
-        </div>
-        <div>
-          <h4 className="font-display font-semibold text-white mb-4">Havolalar</h4>
-          <ul className="space-y-2 text-[13px]">
-            {NAV_ITEMS.slice(0, 4).map(n => (
-              <li key={n.href}><a href={n.href} className="text-white/60 hover:text-white transition">{n.label}</a></li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h4 className="font-display font-semibold text-white mb-4">Ijtimoiy</h4>
-          <ul className="space-y-2 text-[13px]">
-            <li><a href="https://github.com/ewboyeff" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition">GitHub</a></li>
-            <li><a href="https://t.me/dilshod_uz" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition">Telegram</a></li>
-            <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition">Twitter</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="font-display font-semibold text-white mb-4">Kontakt</h4>
-          <ul className="space-y-2 text-[13px]">
-            <li><a href="mailto:dilshod@example.com" className="text-white/60 hover:text-white transition">dilshod@example.com</a></li>
-            <li className="text-white/60">+998 (94) 007-77-77</li>
-          </ul>
-        </div>
-      </div>
-      <div className="border-t border-white/[0.06] pt-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] text-white/50">
-          <p>© 2026 Eshboyev Dilshod. Barcha huquqlar himoyalangan.</p>
-          <div className="flex items-center gap-4">
-            <a href="#" className="hover:text-white/80 transition">Maxfiylik siyosati</a>
-            <span>·</span>
-            <a href="#" className="hover:text-white/80 transition">Foydalanish shartlari</a>
+const Contact = ({ lang }) => {
+  const content = CONTENT[lang].contact;
+  
+  return (
+    <section id="contact" className="relative py-24 lg:py-32">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <div className="reveal max-w-3xl mx-auto text-center">
+          <SectionLabel num="07" text={content.label} />
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-[56px] leading-[1.05] tracking-tight mt-5 text-white">
+            {content.title}
+          </h2>
+          <p className="mt-7 text-lg text-white/65 max-w-2xl mx-auto leading-relaxed">
+            {content.desc}
+          </p>
+          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a href="mailto:dilshod@example.com" className="btn-primary px-6 py-3.5 rounded-xl text-sm font-medium inline-flex items-center gap-2">
+              {content.btn1} <Icon name="ArrowUpRight" className="w-4 h-4" />
+            </a>
+            <a href="https://t.me/dilshod_uz" target="_blank" rel="noopener noreferrer" className="btn-ghost px-6 py-3.5 rounded-xl text-sm font-medium">
+              {content.btn2}
+            </a>
           </div>
         </div>
       </div>
-    </div>
-  </footer>
-);
-
-// ---------- Main App ----------
-export default function App() {
+    </section>
+  );
+};{ lang }) => {
+  const content = CONTENT[lang];
+  const navContent = content.nav;
+  const footerContent = content.footer;
+  
+  return (
+    <footer className="border-t border-white/[0.06] py-12 bg-ink-900/30">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+          <div>
+            <h4 className="font-display font-semibold text-white mb-4">Dilshod</h4>
+            <p className="text-[13px] text-white/55 leading-relaxed">{lang === 'uz' ? 'Backend, AI va Full Stack yechimlar orqali zamonaviy mahsulotlar.' : 'Modern products through Backend, AI and Full Stack solutions.'}</p>
+          </div>
+          <div>
+            <h4 className="font-display font-semibold text-white mb-4">{lang === 'uz' ? 'Havolalar' : 'Links'}</h4>
+            <ul className="space-y-2 text-[13px]">
+              {navContent.slice(0, 4).map(n => (
+                <li key={n.href}><a href={n.href} className="text-white/60 hover:text-white transition">{n.label}</a></li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-display font-semibold text-white mb-4">{lang === 'uz' ? 'Ijtimoiy' : 'Social'}</h4>
+            <ul className="space-y-2 text-[13px]">
+              <li><a href="https://github.com/ewboyeff" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition">GitHub</a></li>
+              <li><a href="https://t.me/dilshod_uz" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition">Telegram</a></li>
+              <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition">Twitter</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-display font-semibold text-white mb-4">{lang === 'uz' ? 'Kontakt' : 'Contact'}</h4>
+            <ul className="space-y-2 text-[13px]">
+              <li><a href="mailto:dilshod@example.com" className="text-white/60 hover:text-white transition">dilshod@example.com</a></li>
+              <li className="text-white/60">+998 (94) 007-77-77</li>
+            </ul>
+          </div>
+        </div>
+        <div className="border-t border-white/[0.06] pt-8">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] text-white/50">
+            <p>{footerContent.copyright}</p>
+            <div className="flex items-center gap-4">
+              <a href="#" className="hover:text-white/80 transition">{footerContent.privacy}</a>
+              <span>·</span>
+              <a href="#" className="hover:text-white/80 transition">{footerContent.terms}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+  const [lang, setLang] = useState('uz');
   useReveal();
 
   return (
@@ -599,7 +700,16 @@ export default function App() {
         <div className="orb animate-aurora" style={{ width: "480px", height: "480px", left: "30%", bottom: "-160px", background: "radial-gradient(circle, #22d3ee 0%, transparent 60%)", animationDelay: "-10s" }}></div>
       </div>
 
-      <Navbar />
+      <Navbar lang={lang} setLang={setLang} />
+      <main>
+        <Hero lang={lang} />
+        <About lang={lang} />
+        <Services lang={lang} />
+        <Projects lang={lang} />
+        <Skills lang={lang} />
+        <Contact lang={lang} />
+      </main>
+      <Footer lang={lang} />
       <main>
         <Hero />
         <About />
