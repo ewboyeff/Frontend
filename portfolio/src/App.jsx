@@ -519,6 +519,53 @@ const SectionHeader = ({ num, label, title, kicker }) => (
   </div>
 );
 
+// ---------- Service Card ----------
+const ServiceCard = ({ s, i }) => (
+  <div className="reveal glass glass-hover rounded-2xl p-5 sm:p-6 ring-grad group">
+    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-neon-blue/30 to-neon-violet/30 grid place-items-center border border-white/10 group-hover:border-white/20 transition">
+      <Icon name={s.icon} className="w-6 h-6 text-white/85" />
+    </div>
+    <h3 className="mt-4 font-display text-xl text-white">{s.title}</h3>
+    <p className="mt-2.5 text-white/65 text-[14.5px] leading-relaxed">{s.desc}</p>
+    <div className="mt-4 flex flex-wrap gap-1.5">
+      {s.tags.map(t => (
+        <span key={t} className="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-white/65">{t}</span>
+      ))}
+    </div>
+  </div>
+);
+
+// ---------- Project Thumb ----------
+const ProjectThumb = ({ p }) => {
+  const isPython = p.cat?.includes('Python') || p.cat?.includes('Backend');
+  const bgColor = isPython ? "from-blue-600 to-blue-500" : "from-purple-600 to-purple-500";
+  
+  return (
+    <div className={`w-full h-48 rounded-2xl bg-gradient-to-br ${bgColor} opacity-80 group-hover:opacity-100 transition-opacity flex items-center justify-center`}>
+      <Icon name={p.icon || "Code"} className="w-16 h-16 text-white/60" />
+    </div>
+  );
+};
+
+// ---------- Skill Group Card ----------
+const SkillGroupCard = ({ g, i }) => (
+  <div className="reveal glass glass-hover rounded-2xl p-5 sm:p-6 ring-grad">
+    <div className="flex items-center gap-3 mb-4">
+      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-neon-blue/30 to-neon-cyan/30 grid place-items-center border border-white/10">
+        <Icon name={g.icon} className="w-5 h-5 text-white/85" />
+      </div>
+      <h3 className="font-display text-lg text-white">{g.label}</h3>
+    </div>
+    <div className="flex flex-wrap gap-2">
+      {g.items.map(item => (
+        <span key={item} className="text-[12px] font-mono px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-white/70 hover:text-white/90 hover:border-white/20 transition">
+          {item}
+        </span>
+      ))}
+    </div>
+  </div>
+);
+
 // ---------- Services ----------
 const Services = ({ lang }) => {
   const content = CONTENT[lang].services;
