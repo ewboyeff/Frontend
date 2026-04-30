@@ -690,6 +690,12 @@ const Footer = ({ lang }) => {
           </div>
         </div>
       </div>
+    </footer>
+  );
+};
+
+// ---------- App ----------
+export default function App() {
   const [lang, setLang] = useState('uz');
   useReveal();
 
@@ -714,15 +720,6 @@ const Footer = ({ lang }) => {
         <Contact lang={lang} />
       </main>
       <Footer lang={lang} />
-      <main>
-        <Hero />
-        <About />
-        <Services />
-        <Projects />
-        <Skills />
-        <Contact />
-      </main>
-      <Footer />
     </div>
   );
 }
