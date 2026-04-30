@@ -1,0 +1,28 @@
+# Vite
+dist/
+.vite/
+
+# Node
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vercel
+.vercel/
+
+# Logs
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
