@@ -189,6 +189,7 @@ const PROJECTS = {
   ],
 };
 const Icon = ({ name, className = "w-5 h-5", strokeWidth = 1.6 }) => {
+  const icons = {
     'ArrowUpRight': () => <svg className={className} stroke="currentColor" fill="none" viewBox="0 0 24 24" strokeWidth={strokeWidth}><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>,
     'Menu': () => <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={strokeWidth}><path d="M3 5h18M3 12h18M3 19h18"/></svg>,
     'X': () => <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={strokeWidth}><path d="M6 6l12 12M18 6l-12 12"/></svg>,
