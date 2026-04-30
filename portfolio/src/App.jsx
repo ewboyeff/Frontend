@@ -457,11 +457,7 @@ const Hero = ({ lang }) => {
 };
 
 // ---------- About ----------
-const About = () => {
-  const stats = [
-    { k: "3+", v: "yil IT tajriba", icon: "Sparkles" },
-    { k: "AI", v: "Engineering", icon: "BrainCircuit" },
-    { k: "BE", { lang }) => {
+const About = ({ lang }) => {
   const content = CONTENT[lang].about;
   
   return (
@@ -485,7 +481,11 @@ const About = () => {
               {content.desc}
             </p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-8">
-              {content.     <span className="w-9 h-9 rounded-xl bg-gradient-to-br from-neon-blue/30 to-neon-violet/30 grid place-items-center border border-white/10">
+              {content.stats.map((s, i) => (
+                <div key={i} className="glass glass-hover rounded-2xl p-5 ring-grad">
+                  <div className="flex items-center justify-between">
+                    <div className="font-display text-2xl text-white">{s.k}</div>
+                    <span className="w-9 h-9 rounded-xl bg-gradient-to-br from-neon-blue/30 to-neon-violet/30 grid place-items-center border border-white/10">
                       <Icon name={s.icon} className="w-4 h-4 text-white/85" />
                     </span>
                   </div>
