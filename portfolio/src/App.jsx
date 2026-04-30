@@ -639,7 +639,10 @@ const Contact = ({ lang }) => {
       </div>
     </section>
   );
-};{ lang }) => {
+};
+
+// ---------- Footer ----------
+const Footer = ({ lang }) => {
   const content = CONTENT[lang];
   const navContent = content.nav;
   const footerContent = content.footer;
