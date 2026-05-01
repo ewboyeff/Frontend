@@ -714,15 +714,15 @@ const Footer = ({ lang }) => {
             <h4 className="font-display font-semibold text-white mb-4">{lang === 'uz' ? 'Ijtimoiy' : 'Social'}</h4>
             <ul className="space-y-2 text-[13px]">
               <li><a href="https://github.com/ewboyeff" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition">GitHub</a></li>
-              <li><a href="https://t.me/dilshod_uz" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition">Telegram</a></li>
-              <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition">Twitter</a></li>
+              <li><a href="https://t.me/ewboyeff" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition">Telegram</a></li>
+              <li><a href="https://www.linkedin.com/in/ewboyeff/" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition">LinkedIn</a></li>
             </ul>
           </div>
           <div>
             <h4 className="font-display font-semibold text-white mb-4">{lang === 'uz' ? 'Kontakt' : 'Contact'}</h4>
             <ul className="space-y-2 text-[13px]">
-              <li><a href="mailto:dilshod@example.com" className="text-white/60 hover:text-white transition">dilshod@example.com</a></li>
-              <li className="text-white/60">+998 (94) 007-77-77</li>
+              <li><a href="mailto:dilshod@example.com" className="text-white/60 hover:text-white transition">davlatovismat19@gmail.com</a></li>
+              <li className="text-white/60">+998 (91) 231 0680</li>
             </ul>
           </div>
         </div>
